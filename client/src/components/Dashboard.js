@@ -1,35 +1,103 @@
-// Dahsboard.js
+// Dashboard.js
+// Component for displaying the main dashboard of the car inventory application
 
-import React, { useContext } from 'react';
-import { CarContext } from '../context/CarContext'; // Adjust the import path as needed
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import React, { useContext, useState } from "react";
+import { CarContext } from "../context/CarContext";
+import { Container, Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
+import CarList from "./CarList";
+import AddCarModal from "./AddCarModal";
 
 const Dashboard = () => {
-  const { cars } = useContext(CarContext);
+  // Access car context for managing car data and older cars
+  const { cars, resetCars, olderCars, fetchOlderCars, fetchAllCars } =
+    useContext(CarContext);
+  // States for managing modals and visibility of older and all cars
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showOlderCars, setShowOlderCars] = useState(false);
+  const [showAllCars, setShowAllCars] = useState(false); // State to control visibility of all cars
+
+  // Function to close the "Add Car" modal
+  const handleAddModalClose = () => setShowAddModal(false);
+  // Function to open the "Add Car" modal
+  const handleAddModalShow = () => setShowAddModal(true);
+
+  // Function to toggle the visibility of older cars
+  const handleToggleOlderCars = () => {
+    if (!showOlderCars) {
+      fetchOlderCars();
+    }
+    setShowOlderCars(!showOlderCars);
+  };
+
+  // Function to toggle the visibility of all cars
+  const handleToggleAllCars = () => {
+    if (!showAllCars) {
+      fetchAllCars();
+    } else {
+      resetCars(); // Call this function to reset the cars list
+    }
+    setShowAllCars(!showAllCars);
+  };
 
   return (
     <Container fluid>
       <h2 className="mt-3">Dashboard</h2>
-      {/* Use Row and Col for responsive layout */}
       <Row>
         <Col>
-          {/* Sample card to display car data - can be replaced with actual components later */}
-          <Card className="mb-3">
-            <Card.Body>
-              <Card.Title>Car Inventory</Card.Title>
-              <Card.Text>
-                {/* Display car data as a list - replace with dynamic content later */}
-                {cars.length > 0 ? (
-                  cars.map(car => <div key={car.id}>{car.model}</div>)
-                ) : (
-                  <p>No cars available.</p>
-                )}
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          <ButtonGroup className="my-3">
+            <Button
+              variant="primary"
+              onClick={handleAddModalShow}
+              className="mb-3"
+            >
+              Add New Car
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={handleToggleOlderCars}
+              className="mb-3"
+            >
+              {showOlderCars ? "Hide Older Cars" : "Show Older Cars"}
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleToggleAllCars}
+              className="mb-3"
+            >
+              {showAllCars ? "Hide All Cars" : "Show All Cars"}
+            </Button>
+          </ButtonGroup>
+          <AddCarModal show={showAddModal} handleClose={handleAddModalClose} />
+          <CarList showAll={showAllCars} />
+          {/* Display older cars */}
+          {showOlderCars && olderCars.length > 0 && (
+  <div>
+    <h3>Older Cars</h3>
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Make</th>
+          <th>Registration</th>
+          <th>Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        {olderCars.map((car, index) => (
+          <tr key={index}>
+            <td>{car.model}</td>
+            <td>{car.make}</td>
+            <td>{car.registration}</td>
+            <td>{car.owner}</td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  </div>
+)}
+
         </Col>
       </Row>
-      {/* Additional Rows and Columns for more components */}
     </Container>
   );
 };

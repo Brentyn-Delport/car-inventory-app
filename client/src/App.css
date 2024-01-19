@@ -1,38 +1,42 @@
-.App {
+/* Apply styles to all elements */
+* {
   text-align: center;
+  font-size: large !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Apply styles to hyperlinks */
+a {
+  font-weight: bolder;
+  font-size: xx-large !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Apply styles to heading elements (h2) */
+h2 {
+  font-size: xx-large !important;
+  font-weight: bolder !important;
+  color: cadetblue !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h3 {
+  font-size: larger !important;
+  font-weight: bolder !important;
+  color: cadetblue !important;
 }
 
-.App-link {
-  color: #61dafb;
+/* Apply styles to buttons */
+button {
+  background-color: cadetblue !important;
+  color: aliceblue !important;
+  border: 2px solid cornflowerblue !important;
+  margin: 7px !important;
+  border-radius: 15px !important;
+  font-size: large !important;
+  font-weight: bold !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Apply styles to buttons on hover */
+button:hover {
+  font-weight: bolder !important;
+  background-color: aliceblue !important;
+  color: cadetblue !important;
 }
