@@ -17,7 +17,7 @@ Make sure you have the following software installed on your system:
 
 1. **Clone the repository to your local machine:**
    ```
-   git clone <repository-url>
+   git clone <https://github.com/Brentyn-Delport/car-inventory-app.git>
    ```
 2. **Change into the project directory:**
    ```
@@ -65,11 +65,9 @@ Make sure you have the following software installed on your system:
 
 - **Edit Car:** Click the "Edit" button next to a car to edit its details.
 
+- **Bulk Edit Cars:** Click the "Bulk Edit" button next to edit details for all the cars. I recommend you click "Show All Cars" button before attempting to bulk edit.
+
 - **Delete Car:** Click the "Delete" button next to a car to remove it from the inventory.
-
-## Contributing
-
-Contributions are welcome! If you'd like to contribute to the project, please follow the contribution guidelines.
 
 ## License
 
