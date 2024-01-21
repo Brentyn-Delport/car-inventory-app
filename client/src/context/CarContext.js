@@ -1,31 +1,45 @@
 // CarContext.js
 // Creates a context for car data and a provider component
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from 'axios'; // Using axious for sending the information to the Express server
 
 // Create a context
 export const CarContext = createContext();
 
-// Initial data for cars
-const initialCars = [
-  {
-    model: "2017",
-    make: "Tesla",
-    registration: "123ABC",
-    owner: "John Doe",
-  },
-];
 
-// CarProvider component that wraps the application with car data and functions
 export const CarProvider = ({ children }) => {
-  // State to manage the list of cars
-  const [cars, setCars] = useState(initialCars);
+    const [cars, setCars] = useState([]);
 
-  // Function to reset cars to their initial state
-  const resetCars = () => {
-    setCars([...initialCars]); // Reset to initial cars
+    useEffect(() => {
+        const fetchCars = async () => {
+            try {
+                const response = await axios.get("http://localhost:5001/cars");
+                // Set only the first 3 cars
+                setCars(response.data.slice(0, 3));
+            } catch (error) {
+                console.error("Error fetching cars:", error);
+            }
+        };
+
+        fetchCars();
+    }, []);
+
+
+ // Function to reset cars to show only a limited number or all cars
+const resetCars = (limit = null) => {
+    if (limit) {
+      // If limit is provided, show only a limited number of cars
+      const limitedCars = cars.slice(0, limit);
+      setCars(limitedCars);
+    } else {
+      // Fetch all cars from the database or API
+      fetchAllCars();
+    }
   };
+  
+
+
 
   // State to store older cars
   const [olderCars, setOlderCars] = useState([]);

@@ -52,6 +52,23 @@ exports.updateCar = async (req, res) => {
     }
 };
 
+// Function to update bulks cars information
+exports.bulkUpdateCars = async (req, res) => {
+    try {
+        const updates = req.body; // Assuming this is an array of car objects with updates
+
+        // Loop through each update and apply them
+        for (const update of updates) {
+            const { id, ...updateData } = update;
+            await Car.findByIdAndUpdate(id, updateData);
+        }
+
+        res.status(200).json({ message: "Cars updated successfully" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 // Function to get a single car by its ID
 exports.getCarById = async (req, res) => {
     try {

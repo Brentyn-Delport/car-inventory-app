@@ -32,12 +32,14 @@ const Dashboard = () => {
   // Function to toggle the visibility of all cars
   const handleToggleAllCars = () => {
     if (!showAllCars) {
-      fetchAllCars();
+      fetchAllCars(); // Fetch and show all cars
     } else {
-      resetCars(); // Call this function to reset the cars list
+      resetCars(3); // Show only 3 cars
     }
     setShowAllCars(!showAllCars);
   };
+  
+  
 
   return (
     <Container fluid>

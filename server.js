@@ -2,13 +2,13 @@
 // Creating the express server
 
 // Using dotenv for password managament
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const carRoutes = require('./routes/carRoutes');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const carRoutes = require("./routes/carRoutes");
 
 // Creating an Express application
 const app = express();
@@ -21,13 +21,14 @@ app.use(cors());
 const dbUrl = process.env.dbUrl;
 
 // Connect to MongoDB using Mongoose
-mongoose.connect(dbUrl)
+mongoose
+  .connect(dbUrl)
   .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 // Define a simple route for testing
-app.get('/', (req, res) => {
-  res.send('Hello from Car Inventory API!');
+app.get("/", (req, res) => {
+  res.send("Hello from Car Inventory API!");
 });
 
 // Use the car routes
@@ -43,6 +44,7 @@ app.listen(PORT, () => {
 
 // Error handling
 app.use((err, req, res, next) => {
-    res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
-  });
-  
+  res
+    .status(err.status || 500)
+    .json({ message: err.message || "Internal Server Error" });
+});

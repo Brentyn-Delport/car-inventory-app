@@ -7,6 +7,9 @@ const express = require('express');
 const router = express.Router();
 const carsController = require('../controllers/carsControllers');
 
+// Route to add bulk car updates
+router.put('/cars/bulk-update', carsController.bulkUpdateCars);
+
 // Route to add a new car
 router.post('/cars', carsController.addCar);
 
@@ -24,6 +27,8 @@ router.put('/cars/:id', carsController.updateCar);
 
 // Route to delete a specific car
 router.delete('/cars/:id', carsController.deleteCar);
+
+
 
 // Export the router
 module.exports = router;

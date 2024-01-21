@@ -33,7 +33,7 @@ const UpdateCarModal = ({ show, handleClose, car }) => {
       );
 
       // Update the car list in the context with the updated car
-      setCars((cars) => cars.map((c) => (c.id === car.id ? updatedCar : c)));
+      setCars((cars) => cars.map((c) => (c._id === updatedCar._id ? updatedCar : c)));
       handleClose();
     } catch (error) {
       console.error("Error updating car:", error);
